@@ -1,5 +1,5 @@
 #include "Roster.h"
-
+#include "Student.h"
 #include <cstdlib>
 #include <fstream>
 #include <cassert>
@@ -71,17 +71,31 @@ void Roster::addStudentsFromStream(std::istream &is) {
 }
 
 int Roster::getNumStudents() const { 
-  return -999; // stub
+  return this->numStudents; // stub
 }
 
 Student Roster::getStudentAt(int index) const { 
-  return Student(-999,"Stubbi","Stubsdottir"); 
+  int perm = (students[index])->getPerm();
+  std::string lastName = students[index]->getLastName();
+  std::string firstAndMiddleNames = students[index]->getFirstAndMiddleNames();
+  return Student(perm,lastName,firstAndMiddleNames); 
 }
 
 std::string Roster::toString() const {
   std::string result = "{\n";
-  
-  result += "STUB!!!!";   // @@@ RESTORE THIS 
+  int n = this->getNumStudents();
+
+  for (int i = 0; i < n; i++) {
+    if (i+1 == n) {
+      result += students[i]->toString();
+    }
+    else {
+    result += students[i]->toString();
+    result += "\n";
+    }
+  }
+
+   // @@@ RESTORE THIS 
 
   result += "}\n";
   return result;

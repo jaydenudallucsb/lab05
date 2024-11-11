@@ -20,7 +20,7 @@ void Roster::resetRoster() {
   
   while (this->numStudents > 0) {
     delete this->students[this->numStudents - 1];
-    this->numStudents --;
+    this->numStudents--;
   }
 
 }
@@ -88,10 +88,11 @@ std::string Roster::toString() const {
   for (int i = 0; i < n; i++) {
     if (i+1 == n) {
       result += students[i]->toString();
+      result += "\n";
     }
     else {
-    result += students[i]->toString();
-    result += "\n";
+      result += students[i]->toString();
+      result += ",\n";
     }
   }
 
@@ -103,20 +104,39 @@ std::string Roster::toString() const {
 }
 
 void Roster::sortByPerm() {
+
+  for (int i = numStudents; i > 1; i--) {
+    sortByPermHelper(i);
+  }
   // SELECTION SORT
   // stub does nothing
 }
 
 int Roster::indexOfMaxPermAmongFirstKStudents(int k) const {
-  return 0; // STUB
+  int maxIndex = 0;
+  int max = 0;
+  for (int i = 0; i < k; i++) {
+    if (students[i]->getPerm() > max) {
+      max = students[i]->getPerm();
+      maxIndex = i;
+    }
+  }
+  return maxIndex; // STUB
 }
 
 void Roster::sortByPermHelper(int k) {
+  if (k <= 1) {
+    return;
+  }
   // swaps max perm from [0..k-1] with elem [k-1]
+
 
 
   int im = indexOfMaxPermAmongFirstKStudents(k);
 
+  Student* temp = students[im];
+  students[im] = students[k-1];
+  students[k-1] = temp;
   // now swap the pointers between index im and index k-1
 
   // THIS IS STILL A STUB !!!
